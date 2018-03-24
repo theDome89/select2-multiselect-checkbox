@@ -16,7 +16,7 @@
     options.forceShowCounter = options.forceShowCounter || false;
 
     // get the value of the select element
-	  var values = $element.val();
+    var selectionValues = $element.val();
 
     // remove attribute multiple
     $element.removeAttr('multiple');
@@ -81,6 +81,6 @@
     select2.$results.on('click').off('click', '[aria-selected]', doChange.bind(this));
 
     // set the multiple attribute with the selected value
-    $element.attr('multiple', '').val(values).trigger('change.select2');
+    $element.attr('multiple', '').val(selectionValues).trigger('change.select2');
   }
 })(jQuery);
