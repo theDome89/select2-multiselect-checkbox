@@ -1,0 +1,52 @@
+.select2-selection__clear:before{
+    font-family:   fontAwesome;
+    color:         grey;
+    content:       "\f1f8";
+    position:      absolute;
+    background:    #ffffff;
+    width:         26px;
+    right:         0;
+    text-align:    center;
+    height:        26px;
+}
+
+.select2-results__option .check {
+    font-size:     16px;
+}
+
+.select2-results__option .check:before{
+    font-family:   fontAwesome;
+    font-size:     16px;
+    color:         grey;
+    content:       "\f096";
+    width:         25px;
+    height:        25px;
+    padding-right: 10px;
+
+}
+
+[aria-selected="true"] .check:before{
+    content:        "\f14a";
+}
+
+.select-field-title {
+    display:        inline-block;
+    font-weight:    bold;
+    text-align:     center;
+    width:          calc(100% - 52px);
+    height:         100%;
+}
+
+.select-field-title.full-width {
+    width:          100%;
+}
+
+.select-field-selected-count {
+    display:        inline-block;
+    width:          26px;
+    text-align:     center;
+    background:     red;
+    height:         26px;
+    border-radius:  26px;
+    color:          #ffffff;
+}
