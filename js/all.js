@@ -21,6 +21,14 @@
     // remove attribute multiple
     $element.removeAttr('multiple');
 
+    // if there are less than 2 optgroup it makes no sense to show a togglable element
+    if($element.find('optgroup').length < 2) {
+      var optGroupElement = $element.find('optgroup');
+      var innerHtml = optGroupElement.html();
+      $element.append(innerHtml);
+      optGroupElement.remove();
+    }
+
     // init select2 => make sure that this plugin does not include the select2 library, so you have to implement the library before implementing this code extension
     // allowClear is set true, so there will be a button to clear all the selected elements at once
     // placeholder attribute is set otherwise we will get an error in the select2 script
@@ -55,6 +63,11 @@
         // set the option text
         var element = $('<div>').text(result.text);
 
+        // set accordion arrows if the element is a optgroup-tag
+        if($(result.element).is('optgroup') === true){
+            element.append('<span class="angle">');
+        }
+
         // set the check marks in the DOM if the element is a option-tag
         if($(result.element).is('option') === true){
           element.addClass('check');
@@ -64,7 +77,7 @@
       }
     }).data('select2');
 
-    // this function is called when an option is clicked 
+    // this function is called when an option is clicked
     var doChange = (function(optionElement) {
       return function(event) {
         var self = $(this);
@@ -76,6 +89,14 @@
         });
       };
     })(select2);
+
+    // init event to toggle the groups
+    select2.$results.on('click', '.select2-results__group', function() {
+      select2.$results.find('[role="group"]').removeAttr('data-open');
+      if($(this).parent('[role="group"]').attr('data-open') !== true) {
+        $(this).parent('[role="group"]').attr('data-open', true);
+      }
+    });
 
     // init events on the selectable elements in the select2 container
     select2.$results.on('click').off('click', '[aria-selected]', doChange.bind(this));
