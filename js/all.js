@@ -65,6 +65,7 @@
 
         // set accordion arrows if the element is a optgroup-tag
         if($(result.element).is('optgroup') === true){
+          element.closest('[role="group"]').attr('data-open', false);
             element.append('<span class="angle">');
         }
 
@@ -76,6 +77,11 @@
         return element;
       }
     }).data('select2');
+
+    // set data element to initially hide options if they are grouped
+    if($element.find('optgroup').length > 1) {
+      select2.$dropdown.attr('data-open', false);
+    }
 
     // this function is called when an option is clicked
     var doChange = (function(optionElement) {
@@ -92,7 +98,7 @@
 
     // init event to toggle the groups
     select2.$results.on('click', '.select2-results__group', function() {
-      select2.$results.find('[role="group"]').removeAttr('data-open');
+      select2.$results.find('[role="group"]').attr('data-open', false);
       if($(this).parent('[role="group"]').attr('data-open') !== true) {
         $(this).parent('[role="group"]').attr('data-open', true);
       }
