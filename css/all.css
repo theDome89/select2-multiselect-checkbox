@@ -29,6 +29,61 @@
 
 }
 
+.select2-results__group {
+    color: grey;
+    cursor: pointer !important;
+    padding: 18px;
+    width: calc(100% - 12px);
+    text-align: left;
+    transition: 0.4s;
+}
+
+.select2-results__group:hover {
+    color: green;
+}
+
+.select2-results__options--nested {
+    background-color: white;
+    display: none;
+    overflow: hidden;
+}
+
+[data-open] ul.select2-results__options--nested {
+    display: none;
+}
+
+[data-open="true"] ul.select2-results__options--nested {
+    display: block;
+}
+
+.angle {
+    color: grey;
+    float: right;
+}
+
+.angle:before {
+    font-family: fontAwesome;
+    content: '\f107';
+    font-size:     16px;
+    width:         25px;
+    height:        25px;
+    padding-right: 10px;
+}
+
+.angle:hover {
+    font-family: fontAwesome;
+    content: '\f107';
+    font-size:     16px;
+    color:         green;
+    width:         25px;
+    height:        25px;
+    padding-right: 10px;
+}
+
+[data-open="true"] .angle:before {
+    content: '\f106';
+}
+
 [aria-selected="true"] .check:before{
     content:        "\f14a";
 }
