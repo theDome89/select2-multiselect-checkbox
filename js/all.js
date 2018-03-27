@@ -83,21 +83,8 @@
       select2.$dropdown.attr('data-open', false);
     }
 
-    // this function is called when an option is clicked
-    var doChange = (function(optionElement) {
-      return function(event) {
-        var self = $(this);
-
-        // if the option element already is selected mark it as unselected, otherwise mark it as selected
-        optionElement.trigger((self.attr('aria-selected') === 'true')?'unselect':'select', {
-          originalEvent: event,
-          data: self.data('data')
-        });
-      };
-    })(select2);
-
     // init event to toggle the groups
-    select2.$results.on('click', '.select2-results__group', function() {
+    select2.$results.off('mouseup').on('mouseup', '.select2-results__group', function() {
       select2.$results.find('[role="group"]').attr('data-open', false);
       if($(this).parent('[role="group"]').attr('data-open') !== true) {
         $(this).parent('[role="group"]').attr('data-open', true);
@@ -105,7 +92,16 @@
     });
 
     // init events on the selectable elements in the select2 container
-    select2.$results.on('click').off('click', '[aria-selected]', doChange.bind(this));
+    select2.$results.off('click').on('click', '[aria-selected]', function(optionElement) {
+      return function(event) {
+        var self = $(this);
+        // if the option element already is selected mark it as unselected, otherwise mark it as selected
+        optionElement.trigger((self.attr('aria-selected') === 'true')?'unselect':'select', {
+          originalEvent: event,
+          data: self.data('data')
+        });
+      };
+    }(select2));
 
     // set the multiple attribute with the selected value
     $element.attr('multiple', '').val(selectionValues).trigger('change.select2');
