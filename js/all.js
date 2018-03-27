@@ -84,19 +84,22 @@
     }
 
     // init event to toggle the groups
-    select2.$results.off('mouseup').on('mouseup', '.select2-results__group', function() {
-      select2.$results.find('[role="group"]').attr('data-open', false);
-      if($(this).parent('[role="group"]').attr('data-open') !== true) {
-        $(this).parent('[role="group"]').attr('data-open', true);
+    select2.$results.off('mouseup').on('mouseup', '.select2-results__group', function(optionSelect) {
+      return function(event) {
+      var self = $(this);
+        optionSelect.$results.find('[role="group"]').attr('data-open', false);
+        if(self.parent('[role="group"]').attr('data-open') !== true) {
+          self.parent('[role="group"]').attr('data-open', true);
+        }
       }
-    });
+    }(select2));
 
     // init events on the selectable elements in the select2 container
-    select2.$results.off('click').on('click', '[aria-selected]', function(optionElement) {
+    select2.$results.off('click').on('click', '[aria-selected]', function(optionSelect) {
       return function(event) {
         var self = $(this);
         // if the option element already is selected mark it as unselected, otherwise mark it as selected
-        optionElement.trigger((self.attr('aria-selected') === 'true')?'unselect':'select', {
+        optionSelect.trigger((self.attr('aria-selected') === 'true')?'unselect':'select', {
           originalEvent: event,
           data: self.data('data')
         });
