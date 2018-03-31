@@ -1,15 +1,17 @@
 (function($) {
-  $('[data-multi-select2-init]').each(function(){
-    if($(this).attr('multiple') === 'multiple') {
-      // init select2 multi select and set additional options
-      new initS2MultiSelect({
-        fieldName: $(this).attr('data-field-name') || $(this).attr('name'),
-        forceShowCounter: $(this).attr('data-show-counter-always') !== undefined
-      }, $(this));
-    }else{
-      // init select2 single select
-      $(this).select2();
-    }
+  $(document).ready(function() {
+    $('[data-multi-select2-init]').each(function(){
+      if($(this).attr('multiple') === 'multiple') {
+        // init select2 multi select and set additional options
+        new initS2MultiSelect({
+          fieldName: $(this).attr('data-field-name') || $(this).attr('name'),
+          forceShowCounter: $(this).attr('data-show-counter-always') !== undefined
+        }, $(this));
+      }else{
+        // init select2 single select
+        $(this).select2();
+      }
+    });
   });
 
   function initS2MultiSelect(options, $element) {
